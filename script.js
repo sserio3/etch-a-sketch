@@ -20,20 +20,28 @@ function createGrid(gridSize = 16) {
         const gridSquare = document.createElement('div');
         gridSquare.style.width = squareSize + 'px';
         gridSquare.style.height = squareSize + 'px';
-
-        gridSquare.textContent = i + 1; // For testing purposes, show the square number
-        gridSquare.style.fontSize = '8px'; // For testing purposes, make the text smaller
-        
         gridSquare.classList.add('grid-square');
         gridContainer.appendChild(gridSquare);
+
+        // Add event listener to change square color on mouseover
+        gridSquare.addEventListener('mouseover', () => {
+            gridSquare.style.backgroundColor = 'gray';
+        });
     }
 }
 
-// Test 1: Create a grid of the default size of 16 x 16 squares, visually check for correct grid format
+
+// Test 1: Check if a grid square turns gray on mouseover
 createGrid();
 
-// Test 2: Create a grid of 4 x 4 squares, visually check for correct grid format
-createGrid(4);
+const gridCell = document.querySelector('.grid-square');
 
-// Test 3: Create a grid of 100 x 100 squares, visually check for correct grid format
-createGrid(100);
+// Simulate a mouseover event on the first grid cell
+const mouseoverEvent = new Event('mouseover');
+gridCell.dispatchEvent(mouseoverEvent);
+
+if (gridCell.style.backgroundColor === 'gray') {
+    console.log('TEST PASSED: Mouseover event triggered successfully');
+} else {
+    console.log('TEST FAILED: Mouseover event failed');
+}
