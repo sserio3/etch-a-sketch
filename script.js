@@ -31,6 +31,18 @@ function createGrid(gridSize = 16) {
 }
 
 
+/**
+ * This function clears the grid color, changing all squares back to the default white color.
+ * @returns {void}
+ */
+function clearGrid() {
+    const gridSquares = document.querySelectorAll('.grid-square');
+    gridSquares.forEach(gridSquare => {
+        gridSquare.style.backgroundColor = 'white';
+    });
+}
+
+
 // Test 1: Check if a grid square turns gray on mouseover
 createGrid();
 
@@ -62,4 +74,21 @@ if (allGray) {
 }
 else {
     console.log('TEST FAILED: Not all grid squares turned gray on mouseover');
+}
+
+
+//Test 3: Check if clearGrid function works
+clearGrid();
+let allWhite = true;
+allGridCells.forEach(gridCell => {
+    if (gridCell.style.backgroundColor !== 'white') {
+        allWhite = false;
+    }
+});
+
+if (allWhite) {
+    console.log('TEST PASSED: All grid squares cleared to white after clearGrid()');
+}
+else {
+    console.log('TEST FAILED: Not all grid squares cleared to white after clearGrid()');
 }
