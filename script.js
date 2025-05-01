@@ -45,3 +45,21 @@ if (gridCell.style.backgroundColor === 'gray') {
 } else {
     console.log('TEST FAILED: Mouseover event failed');
 }
+
+
+// Test 2: Check if all grid squares turn gray on mouseover
+const allGridCells = document.querySelectorAll('.grid-square');
+let allGray = true;
+allGridCells.forEach(gridCell => {
+    gridCell.dispatchEvent(mouseoverEvent);
+    if (gridCell.style.backgroundColor !== 'gray') {
+        allGray = false;
+    }
+});
+
+if (allGray) {
+    console.log('TEST PASSED: All grid squares turned gray on mouseover');
+}
+else {
+    console.log('TEST FAILED: Not all grid squares turned gray on mouseover');
+}
