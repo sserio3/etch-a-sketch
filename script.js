@@ -13,7 +13,9 @@ gridContainer.style.width = `${gridContainerSize}px`;
  * @returns {void}
  */
 function createGrid(gridSize = 16) {
-    // Side size calculated by dividing the container size by gridSize
+    gridContainer.innerHTML = '';  // Clear grid container before creating a new grid
+
+    // Calculated size of each square size by dividing the container size by gridSize
     const squareSize = Math.floor(gridContainerSize / gridSize);
     
     for (let i = 0; i < gridSize * gridSize; i++) {
@@ -43,6 +45,28 @@ function clearGrid() {
 }
 
 
+function getUserGridSize() {
+    let newSize = prompt("Please enter a grid size between 1 and 100 (e.g., entering 4 will create a 4x4 grid):");
+    if (newSize >= 1 && newSize <= 100) {
+        return newSize;
+    } else {
+        alert("Invalid input. Please try again with a valid number between 1 and 100.");
+        return null;
+    }
+}
+
+
+const newGridButton = document.getElementById('new-grid-btn');
+
+// Add event listener to the button to create a new grid
+newGridButton.addEventListener('click', () => { 
+    let userGridSize = getUserGridSize(); 
+    if (userGridSize) {
+        createGrid(userGridSize);
+    }
+}); 
+
+
 // Test 1: Check if a grid square turns gray on mouseover
 createGrid();
 
@@ -62,6 +86,8 @@ if (gridCell.style.backgroundColor === 'gray') {
 // Test 2: Check if all grid squares turn gray on mouseover
 const allGridCells = document.querySelectorAll('.grid-square');
 let allGray = true;
+
+//Similate mouseover event on all grid cells
 allGridCells.forEach(gridCell => {
     gridCell.dispatchEvent(mouseoverEvent);
     if (gridCell.style.backgroundColor !== 'gray') {
@@ -77,7 +103,7 @@ else {
 }
 
 
-//Test 3: Check if clearGrid function works
+//Test 3: Check if clearGrid function correctly sets all squares to white
 clearGrid();
 let allWhite = true;
 allGridCells.forEach(gridCell => {
@@ -92,3 +118,50 @@ if (allWhite) {
 else {
     console.log('TEST FAILED: Not all grid squares cleared to white after clearGrid()');
 }
+
+
+// Test 4: Check if new grid button works
+const testNewGridButton = document.getElementById('new-grid-btn');
+
+// Set a placeholder for the prompt function to reset the prompt input after testing
+const originalPrompt = window.prompt;
+
+// Simulate click event on new grid button to create a new 20x20 grid
+let testInput = '20';
+window.prompt = () => testInput;
+
+const clickNewGridEvent = new Event('click');
+testNewGridButton.dispatchEvent(clickNewGridEvent);
+
+if (gridContainer.childElementCount === 400) { // 20x20 grid = 400 squares
+    console.log('TEST PASSED: New grid button successfully created a new 20x20 grid');
+}
+else {
+    console.log('TEST FAILED: New grid button did not create a new 20x20 grid');
+}
+window.prompt = originalPrompt; // Reset prompt function to its original state
+
+
+// Test 5: Check if getUserGridSize function correctly refuses an invalid number input
+testInput = '500'; // Simulate user input of '500'
+window.prompt = () => testInput;
+
+// Visually check for an alert popup to verify that the input is invalid
+testNewGridButton.dispatchEvent(clickNewGridEvent);
+console.log('Test passed if alert popup displayed for invalid number input');
+
+window.prompt = originalPrompt; // Reset prompt function to its original state
+
+
+// Test 6: Check if getUserGridSize function correctly refuses an invalid non-number input
+testInput = 'abc'; // Simulate user input of 'abc'
+window.prompt = () => testInput;
+
+// Visually check for an alert popup to verify that the input is invalid
+testNewGridButton.dispatchEvent(clickNewGridEvent);
+console.log('Test passed if alert popup displayed for invalid non-number input');
+
+window.prompt = originalPrompt; // Reset prompt function to its original state
+
+
+createGrid(); // Create the initial grid
