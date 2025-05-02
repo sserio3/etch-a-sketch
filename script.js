@@ -3,7 +3,7 @@
 
 // Set grid container width to 800px
 const gridContainer = document.getElementById('grid-container');
-const gridContainerSize = 800;  // Used to calculate the size of each square
+let gridContainerSize = 500;  // Used to calculate the size of each square
 gridContainer.style.width = `${gridContainerSize}px`;
 
 

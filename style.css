@@ -6,6 +6,37 @@ body {
     align-items: center;
 }
 
+
+/* ===== FONTS ==== */
+
+.corinthia-bold {
+    font-family: "Corinthia", cursive;
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+/* ===== GAME COMPONENTS ==== */
+
+#game-frame {
+    background-color: #db1d1d;
+    padding: 32px 48px;
+    border-radius: 16px;
+}
+
+header {
+    text-align: center;
+    align-items: center;
+    margin: 16px;
+}
+
+h1 {
+    color: gold;
+    font-size: 48px;
+    margin: 16px;
+}
+
+
 #grid-container {
     display: flex;
     flex-wrap: wrap;
