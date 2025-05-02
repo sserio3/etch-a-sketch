@@ -22,6 +22,9 @@ body {
     background-color: #db1d1d;
     padding: 32px 48px;
     border-radius: 16px;
+    box-shadow:
+        inset 4px 4px 6px rgba(255, 255, 255, 0.8),     /* top-left highlight */
+        inset -4px -4px 6px rgba(0, 0, 0, 0.6);         /* bottom-right shadow */
 }
 
 header {
@@ -34,6 +37,7 @@ h1 {
     color: gold;
     font-size: 48px;
     margin: 16px;
+    text-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.8);
 }
 
 
