@@ -15,12 +15,18 @@ body {
     font-style: normal;
 }
 
+.ubuntu-regular-italic {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
 
 /* ===== GAME COMPONENTS ==== */
 
 #game-frame {
     background-color: #db1d1d;
-    padding: 32px 48px;
+    padding: 40px 64px;
     border-radius: 16px;
     box-shadow:
         inset 4px 4px 6px rgba(255, 255, 255, 0.8),     /* top-left highlight */
@@ -30,13 +36,13 @@ body {
 header {
     text-align: center;
     align-items: center;
-    margin: 16px;
+    margin: 0;
 }
 
 h1 {
     color: gold;
     font-size: 48px;
-    margin: 16px;
+    margin: 0;
     text-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.8);
 }
 
@@ -44,8 +50,7 @@ h1 {
 #grid-container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
     justify-content: center;
     align-items: center;
     border: 0.5px solid gray;
@@ -60,4 +65,42 @@ h1 {
     align-items: center;
     box-sizing: border-box;
     background-color: white;
+}
+
+
+/* ==== CONTROLS / BUTTONS ==== */
+
+#controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0 24px 0;
+    padding: 0;
+}
+
+button {
+    width: 64px;
+    height: 64px;
+    background-color: #ffffff;
+    color: black;
+    font-size: 12px;
+    text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.8);
+    border: none;
+    border-radius: 50%;     /* Circle shape */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0px 0px 4px  rgba(0, 0, 0, 0.8),      /* shadow full around */
+        2px 2px 4px rgba(0, 0, 0, 0.6);             /* outer lift shadow */
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+    box-shadow:
+        inset 0px 0px 6px rgba(0, 0, 0, 0.8),
+        /* inset 3px 3px 5px rgba(0, 0, 0, 0.15), */
+        2px 2px 4px rgba(0, 0, 0, 1);
 }
