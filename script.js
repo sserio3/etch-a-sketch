@@ -17,6 +17,9 @@ function createGrid(gridSize = 16) {
 
     // Calculated size of each square size by dividing the container size by gridSize
     const squareSize = Math.floor(gridContainerSize / gridSize);
+
+    //Update grid container size to fit the new grid for styling purposes
+    gridContainer.style.width = `${squareSize * gridSize}px`;
     
     for (let i = 0; i < gridSize * gridSize; i++) {
         const gridSquare = document.createElement('div');
