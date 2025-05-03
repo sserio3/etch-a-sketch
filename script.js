@@ -8,6 +8,18 @@ gridContainer.style.width = `${gridContainerSize}px`;
 
 
 /**
+ * Generate a random RGB color string by generating random values for red, green, and blue components.
+ * @returns {string} - A random RGB color string in the format "rgb(r, g, b)"
+ */
+function getRandColorValues() {
+    const redValue = Math.floor(Math.random() * 256);
+    const greenValue = Math.floor(Math.random() * 256);
+    const blueValue = Math.floor(Math.random() * 256);
+    return [redValue, greenValue, blueValue];
+}
+
+
+/**
  * This function creates a grid of square div elements based on the specified number of squares per side. 
  * @param {number} gridSize: The size of the grid/number of squares per side (default is 16 for a 16x16 grid)
  * @returns {void}
@@ -165,6 +177,23 @@ testNewGridButton.dispatchEvent(clickNewGridEvent);
 console.log('Test passed if alert popup displayed for invalid non-number input');
 
 window.prompt = originalPrompt; // Reset prompt function to its original state
+
+
+// Test 7: Check if getRandomColor function returns a valid RGB color
+let colorValues = getRandColorValues();
+let allValsValid = true;  // Flag to track if all color values are valid
+for (let i = 0; i < colorValues.length; i++) {
+    if (colorValues[i] < 0 || colorValues[i] > 255) {
+        allValid = false;
+    }
+}
+
+if (allValsValid) {
+    console.log('TEST PASSED: Valid RGB color values returned from getRandomColor()');
+}
+else {
+    console.log('TEST FAILED: Invalid RGB color values returned from getRandomColor()');
+}
 
 
 createGrid(); // Create the initial grid
