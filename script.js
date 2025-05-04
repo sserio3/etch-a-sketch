@@ -10,9 +10,13 @@ const MAX_GRID_SIZE = 100;
 
 const DEFAULT_GRID_PX_WIDTH = 500; // Default grid container pixel width
 
+// The following variables are used for grid square colors
 const DEFAULT_UNFILLED_COLOR = 'white';
 const DEFAULT_FILLED_COLOR = 'gray';
 const DEFAULT_COLOR_MODE = false; // False by default (color mode is off)
+
+const DEFAULT_BUTTON_COLOR = 'white'; // Should match CSS styling
+const ACTTIVE_BUTTON_COLOR = 'gray'; // Should match CSS styling if applicable
 
 
 // ========== GAME LOGIC ==============
@@ -33,15 +37,15 @@ colorModeButton.addEventListener('click', () => {
 
 
 /**
- * This function toggles the button color between white and gray.
+ * Toggle the button color between white and gray.
  * @param {HTMLElement} button: The button element that we want to toggle the color of
  * @returns {void}
  */
 function toggleButtonColor(button) {
-    if (button.style.backgroundColor === DEFAULT_UNFILLED_COLOR) {
-        button.style.backgroundColor = DEFAULT_FILLED_COLOR;
+    if (button.style.backgroundColor === DEFAULT_BUTTON_COLOR) {
+        button.style.backgroundColor = ACTTIVE_BUTTON_COLOR;
     } else {
-        button.style.backgroundColor = DEFAULT_UNFILLED_COLOR;
+        button.style.backgroundColor = DEFAULT_BUTTON_COLOR;
     }
 }
 
