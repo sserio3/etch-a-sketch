@@ -8,6 +8,8 @@ const DEFAULT_GRID_SIZE = 16;
 const MIN_GRID_SIZE = 1;
 const MAX_GRID_SIZE = 100;
 
+const DEFAULT_GRID_PX_WIDTH = 500; // Default grid container pixel width
+
 const DEFAULT_UNFILLED_COLOR = 'white';
 const DEFAULT_FILLED_COLOR = 'gray';
 const DEFAULT_COLOR_MODE = false; // False by default (color mode is off)
@@ -17,7 +19,7 @@ const DEFAULT_COLOR_MODE = false; // False by default (color mode is off)
 
 // Set grid container width to 500px
 const gridContainer = document.getElementById('grid-container');
-let gridContainerSize = 500;  // Used to calculate the size of each square
+let gridContainerSize = DEFAULT_GRID_PX_WIDTH;  // Used to calculate the size of each square
 gridContainer.style.width = `${gridContainerSize}px`;
 
 let colorModeOn = DEFAULT_COLOR_MODE;
