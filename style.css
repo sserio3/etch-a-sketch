@@ -81,6 +81,7 @@ h1 {
 button {
     width: 64px;
     height: 64px;
+    margin: 0 16px;
     background-color: #ffffff;
     color: black;
     font-size: 12px;
@@ -98,9 +99,8 @@ button {
 }
 
 button:hover {
-    background-color: #e0e0e0;
+    /* background-color: #e0e0e0; */
     box-shadow:
         inset 0px 0px 6px rgba(0, 0, 0, 0.8),
-        /* inset 3px 3px 5px rgba(0, 0, 0, 0.15), */
         2px 2px 4px rgba(0, 0, 0, 1);
 }

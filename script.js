@@ -6,6 +6,29 @@ const gridContainer = document.getElementById('grid-container');
 let gridContainerSize = 500;  // Used to calculate the size of each square
 gridContainer.style.width = `${gridContainerSize}px`;
 
+let colorModeOn = false;  // False by default (color mode is off)
+const colorModeButton = document.getElementById('color-mode-btn');
+
+// Add event listener to the button to toggle color mode
+colorModeButton.addEventListener('click', () => {
+    colorModeOn = !colorModeOn; 
+    toggleButtonColor(colorModeButton);
+});
+
+
+/**
+ * This function toggles the button color between white and gray.
+ * @param {HTMLElement} button: The button element that we want to toggle the color of
+ * @returns {void}
+ */
+function toggleButtonColor(button) {
+    if (button.style.backgroundColor === 'white') {
+        button.style.backgroundColor = 'gray';
+    } else {
+        button.style.backgroundColor = 'white';
+    }
+}
+
 
 /**
  * Generate a random RGB color string by generating random values for red, green, and blue components.
@@ -42,7 +65,14 @@ function createGrid(gridSize = 16) {
 
         // Add event listener to change square color on mouseover
         gridSquare.addEventListener('mouseover', () => {
-            gridSquare.style.backgroundColor = 'gray';
+            if (!colorModeOn) {
+                gridSquare.style.backgroundColor = 'gray';
+            }
+            else {
+                let rgbColorValues = getRandColorValues();
+                rgbColor = `rgb(${rgbColorValues[0]}, ${rgbColorValues[1]}, ${rgbColorValues[2]})`;
+                gridSquare.style.backgroundColor = rgbColor;
+            }
         });
     }
 }
@@ -145,8 +175,8 @@ const originalPrompt = window.prompt;
 let testInput = '20';
 window.prompt = () => testInput;
 
-const clickNewGridEvent = new Event('click');
-testNewGridButton.dispatchEvent(clickNewGridEvent);
+const clickEvent = new Event('click');
+testNewGridButton.dispatchEvent(clickEvent);
 
 if (gridContainer.childElementCount === 400) { // 20x20 grid = 400 squares
     console.log('TEST PASSED: New grid button successfully created a new 20x20 grid');
@@ -162,7 +192,7 @@ testInput = '500'; // Simulate user input of '500'
 window.prompt = () => testInput;
 
 // Visually check for an alert popup to verify that the input is invalid
-testNewGridButton.dispatchEvent(clickNewGridEvent);
+testNewGridButton.dispatchEvent(clickEvent);
 console.log('Test passed if alert popup displayed for invalid number input');
 
 window.prompt = originalPrompt; // Reset prompt function to its original state
@@ -173,15 +203,16 @@ testInput = 'abc'; // Simulate user input of 'abc'
 window.prompt = () => testInput;
 
 // Visually check for an alert popup to verify that the input is invalid
-testNewGridButton.dispatchEvent(clickNewGridEvent);
+testNewGridButton.dispatchEvent(clickEvent);
 console.log('Test passed if alert popup displayed for invalid non-number input');
 
 window.prompt = originalPrompt; // Reset prompt function to its original state
 
 
-// Test 7: Check if getRandomColor function returns a valid RGB color
+// Test 7: Check if getRandomColor function returns valid RGB color values
 let colorValues = getRandColorValues();
 let allValsValid = true;  // Flag to track if all color values are valid
+
 for (let i = 0; i < colorValues.length; i++) {
     if (colorValues[i] < 0 || colorValues[i] > 255) {
         allValid = false;
@@ -194,6 +225,57 @@ if (allValsValid) {
 else {
     console.log('TEST FAILED: Invalid RGB color values returned from getRandomColor()');
 }
+
+
+// Test 8: Check if color mode button toggles color mode on
+colorModeOn = false; // Set color mode to default state for testing
+colorModeButton.dispatchEvent(clickEvent);
+
+if (colorModeOn) {
+    console.log('TEST PART 1 PASSED: Color mode toggled on successfully');
+    colorModeButton.dispatchEvent(clickEvent); // Check toggle off
+    
+    if (!colorModeOn) {
+        console.log('TEST PART 2 PASSED: Color mode toggled off successfully');
+    }
+    else {
+        console.log('TEST PART 2 FAILED: Color mode toggle off failed');
+    }
+}
+else {
+    console.log('TEST PART 1 FAILED: Color mode toggle failed');
+}
+
+
+// Test 9: Check if color actually changes to random color in color mode
+colorModeOn = true; // Set color mode to on for testing
+gridCell.dispatchEvent(mouseoverEvent);
+
+if (gridCell.style.backgroundColor !== 'gray' && gridCell.style.backgroundColor !== 'white') {
+    console.log('TEST PASSED: Square changed to random color in color mode successfully');
+}
+else {
+    console.log('TEST FAILED: Square failed to change to random color in color mode');
+}
+
+colorModeOn = false; // Reset color mode for next test regardless of test result
+
+
+// Test 10: Check if toggleButtonColor function changes button color
+colorModeButton.style.backgroundColor = 'white';  // Set color back to white (default state)
+toggleButtonColor(colorModeButton);
+
+if (colorModeButton.style.backgroundColor === 'gray') {
+    console.log('TEST PASSED: Button color toggled to gray successfully');
+}
+else {
+    console.log('TEST FAILED: Button color toggle failed');
+}
+
+
+// Reset color mode button color and colorModeOn to default state
+colorModeButton.style.backgroundColor = 'white';
+colorModeOn = false;
 
 
 createGrid(); // Create the initial grid
