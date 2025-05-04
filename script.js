@@ -1,12 +1,26 @@
 // script.js - This file contains the JavaScript logic for this project
 
 
+// ======== GLOBAL VARIABLES ==========
+
+// Grid size indicates the number of squares per side (e.g., 16 for a 16x16 grid)
+const DEFAULT_GRID_SIZE = 16;
+const MIN_GRID_SIZE = 1;
+const MAX_GRID_SIZE = 100;
+
+const DEFAULT_UNFILLED_COLOR = 'white';
+const DEFAULT_FILLED_COLOR = 'gray';
+const DEFAULT_COLOR_MODE = false; // False by default (color mode is off)
+
+
+// ========== GAME LOGIC ==============
+
 // Set grid container width to 800px
 const gridContainer = document.getElementById('grid-container');
 let gridContainerSize = 500;  // Used to calculate the size of each square
 gridContainer.style.width = `${gridContainerSize}px`;
 
-let colorModeOn = false;  // False by default (color mode is off)
+let colorModeOn = DEFAULT_COLOR_MODE;
 const colorModeButton = document.getElementById('color-mode-btn');
 
 // Add event listener to the button to toggle color mode
@@ -22,10 +36,10 @@ colorModeButton.addEventListener('click', () => {
  * @returns {void}
  */
 function toggleButtonColor(button) {
-    if (button.style.backgroundColor === 'white') {
-        button.style.backgroundColor = 'gray';
+    if (button.style.backgroundColor === DEFAULT_UNFILLED_COLOR) {
+        button.style.backgroundColor = DEFAULT_FILLED_COLOR;
     } else {
-        button.style.backgroundColor = 'white';
+        button.style.backgroundColor = DEFAULT_UNFILLED_COLOR;
     }
 }
 
@@ -47,7 +61,7 @@ function getRandColorValues() {
  * @param {number} gridSize: The size of the grid/number of squares per side (default is 16 for a 16x16 grid)
  * @returns {void}
  */
-function createGrid(gridSize = 16) {
+function createGrid(gridSize = DEFAULT_GRID_SIZE) {
     gridContainer.innerHTML = '';  // Clear grid container before creating a new grid
 
     // Calculated size of each square size by dividing the container size by gridSize
@@ -66,7 +80,7 @@ function createGrid(gridSize = 16) {
         // Add event listener to change square color on mouseover
         gridSquare.addEventListener('mouseover', () => {
             if (!colorModeOn) {
-                gridSquare.style.backgroundColor = 'gray';
+                gridSquare.style.backgroundColor = DEFAULT_FILLED_COLOR;
             }
             else {
                 let rgbColorValues = getRandColorValues();
@@ -85,17 +99,19 @@ function createGrid(gridSize = 16) {
 function clearGrid() {
     const gridSquares = document.querySelectorAll('.grid-square');
     gridSquares.forEach(gridSquare => {
-        gridSquare.style.backgroundColor = 'white';
+        gridSquare.style.backgroundColor = DEFAULT_UNFILLED_COLOR;
     });
 }
 
 
 function getUserGridSize() {
-    let newSize = prompt("Please enter a grid size between 1 and 100 (e.g., entering 4 will create a 4x4 grid):");
-    if (newSize >= 1 && newSize <= 100) {
+    let newSize = prompt(`Please enter a grid size between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE} \
+        (e.g., entering 4 will create a 4x4 grid):`);
+    if (newSize >= MIN_GRID_SIZE && newSize <= MAX_GRID_SIZE) {
         return newSize;
     } else {
-        alert("Invalid input. Please try again with a valid number between 1 and 100.");
+        alert(`Invalid input. Please try again with a valid number between \
+            ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}.`);
         return null;
     }
 }
@@ -112,6 +128,8 @@ newGridButton.addEventListener('click', () => {
 }); 
 
 
+// =========== TEST CASES =============
+
 // Test 1: Check if a grid square turns gray on mouseover
 createGrid();
 
@@ -121,26 +139,26 @@ const gridCell = document.querySelector('.grid-square');
 const mouseoverEvent = new Event('mouseover');
 gridCell.dispatchEvent(mouseoverEvent);
 
-if (gridCell.style.backgroundColor === 'gray') {
+if (gridCell.style.backgroundColor === DEFAULT_FILLED_COLOR) {
     console.log('TEST PASSED: Mouseover event triggered successfully');
 } else {
     console.log('TEST FAILED: Mouseover event failed');
 }
 
 
-// Test 2: Check if all grid squares turn gray on mouseover
+// Test 2: Check if all grid squares are filled with the default color on mouseover
 const allGridCells = document.querySelectorAll('.grid-square');
-let allGray = true;
+let allFilled = true;
 
 //Similate mouseover event on all grid cells
 allGridCells.forEach(gridCell => {
     gridCell.dispatchEvent(mouseoverEvent);
-    if (gridCell.style.backgroundColor !== 'gray') {
-        allGray = false;
+    if (gridCell.style.backgroundColor !== DEFAULT_FILLED_COLOR) {
+        allFilled = false;
     }
 });
 
-if (allGray) {
+if (allFilled) {
     console.log('TEST PASSED: All grid squares turned gray on mouseover');
 }
 else {
@@ -148,16 +166,16 @@ else {
 }
 
 
-//Test 3: Check if clearGrid function correctly sets all squares to white
+//Test 3: Check if clearGrid function correctly sets all squares to unfilled
 clearGrid();
-let allWhite = true;
+let allUnfilled = true;
 allGridCells.forEach(gridCell => {
-    if (gridCell.style.backgroundColor !== 'white') {
-        allWhite = false;
+    if (gridCell.style.backgroundColor !== DEFAULT_UNFILLED_COLOR) {
+        allUnfilled = false;
     }
 });
 
-if (allWhite) {
+if (allUnfilled) {
     console.log('TEST PASSED: All grid squares cleared to white after clearGrid()');
 }
 else {
@@ -251,7 +269,8 @@ else {
 colorModeOn = true; // Set color mode to on for testing
 gridCell.dispatchEvent(mouseoverEvent);
 
-if (gridCell.style.backgroundColor !== 'gray' && gridCell.style.backgroundColor !== 'white') {
+if (gridCell.style.backgroundColor !== DEFAULT_FILLED_COLOR && 
+    gridCell.style.backgroundColor !== DEFAULT_UNFILLED_COLOR) {
     console.log('TEST PASSED: Square changed to random color in color mode successfully');
 }
 else {
@@ -262,10 +281,10 @@ colorModeOn = false; // Reset color mode for next test regardless of test result
 
 
 // Test 10: Check if toggleButtonColor function changes button color
-colorModeButton.style.backgroundColor = 'white';  // Set color back to white (default state)
+colorModeButton.style.backgroundColor = DEFAULT_UNFILLED_COLOR;  // Set color back to default state
 toggleButtonColor(colorModeButton);
 
-if (colorModeButton.style.backgroundColor === 'gray') {
+if (colorModeButton.style.backgroundColor === DEFAULT_FILLED_COLOR) {
     console.log('TEST PASSED: Button color toggled to gray successfully');
 }
 else {
@@ -274,7 +293,7 @@ else {
 
 
 // Reset color mode button color and colorModeOn to default state
-colorModeButton.style.backgroundColor = 'white';
+colorModeButton.style.backgroundColor = DEFAULT_UNFILLED_COLOR;
 colorModeOn = false;
 
 
