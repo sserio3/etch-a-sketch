@@ -37,7 +37,7 @@ colorModeButton.addEventListener('click', () => {
 
 
 /**
- * Toggle the button color between white and gray.
+ * Toggles the button color between white and gray.
  * @param {HTMLElement} button: The button element that we want to toggle the color of
  * @returns {void}
  */
@@ -51,7 +51,7 @@ function toggleButtonColor(button) {
 
 
 /**
- * Generate a random RGB color string by generating random values for red, green, and blue components.
+ * Generates a random RGB color string by generating random values for red, green, and blue components.
  * @returns {string} - A random RGB color string in the format "rgb(r, g, b)"
  */
 function getRandColorValues() {
@@ -63,7 +63,7 @@ function getRandColorValues() {
 
 
 /**
- * This function creates a grid of square div elements based on the specified number of squares per side. 
+ * Creates a grid of square div elements based on the specified number of squares per side. 
  * @param {number} gridSize: The size of the grid/number of squares per side (default is 16 for a 16x16 grid)
  * @returns {void}
  */
@@ -99,7 +99,7 @@ function createGrid(gridSize = DEFAULT_GRID_SIZE) {
 
 
 /**
- * This function clears the grid color, changing all squares back to the default white color.
+ * Clears the grid color, changing all squares back to the default white color.
  * @returns {void}
  */
 function clearGrid() {
@@ -110,6 +110,10 @@ function clearGrid() {
 }
 
 
+/**
+ * Retrives the grid size from the user through a prompt and validates the input.
+ * @returns {number} - The size of the grid entered by the user or null if invalid
+ */
 function getUserGridSize() {
     let newSize = prompt(`Please enter a grid size between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE} \
 (e.g., entering 4 will create a 4x4 grid):`);
