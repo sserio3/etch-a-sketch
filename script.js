@@ -15,7 +15,7 @@ const DEFAULT_COLOR_MODE = false; // False by default (color mode is off)
 
 // ========== GAME LOGIC ==============
 
-// Set grid container width to 800px
+// Set grid container width to 500px
 const gridContainer = document.getElementById('grid-container');
 let gridContainerSize = 500;  // Used to calculate the size of each square
 gridContainer.style.width = `${gridContainerSize}px`;
@@ -106,12 +106,12 @@ function clearGrid() {
 
 function getUserGridSize() {
     let newSize = prompt(`Please enter a grid size between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE} \
-        (e.g., entering 4 will create a 4x4 grid):`);
+(e.g., entering 4 will create a 4x4 grid):`);
     if (newSize >= MIN_GRID_SIZE && newSize <= MAX_GRID_SIZE) {
         return newSize;
     } else {
         alert(`Invalid input. Please try again with a valid number between \
-            ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}.`);
+${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}.`);
         return null;
     }
 }
