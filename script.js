@@ -80,6 +80,7 @@ function createGrid(gridSize = DEFAULT_GRID_SIZE) {
         const gridSquare = document.createElement('div');
         gridSquare.style.width = squareSize + 'px';
         gridSquare.style.height = squareSize + 'px';
+        gridSquare.style.backgroundColor = DEFAULT_UNFILLED_COLOR; // Set color here for consistency
         gridSquare.classList.add('grid-square');
         gridContainer.appendChild(gridSquare);
 
@@ -137,6 +138,13 @@ newGridButton.addEventListener('click', () => {
     }
 }); 
 
+const clearGridButton = document.getElementById('clear-grid-btn');
+
+// Add event listener to the button to clear the grid
+clearGridButton.addEventListener('click', () => {
+    clearGrid();
+});
+
 
 // =========== TEST CASES =============
 
@@ -157,7 +165,7 @@ if (gridCell.style.backgroundColor === DEFAULT_FILLED_COLOR) {
 
 
 // Test 2: Check if all grid squares are filled with the default color on mouseover
-const allGridCells = document.querySelectorAll('.grid-square');
+let allGridCells = document.querySelectorAll('.grid-square');
 let allFilled = true;
 
 //Similate mouseover event on all grid cells
@@ -299,6 +307,32 @@ if (colorModeButton.style.backgroundColor === DEFAULT_FILLED_COLOR) {
 }
 else {
     console.log('TEST FAILED: Button color toggle failed');
+}
+
+
+// Test 11: Check if clearGrid function resets grid squares to default color
+ // Set all squares to filled color for testing
+allGridCells.forEach(gridCell => {
+    gridCell.backgroundColor = DEFAULT_FILLED_COLOR;
+});
+
+clearGridButton.dispatchEvent(clickEvent); // Simiulate click event to clear grid
+
+// Check if all grid squares are set to the default unfilled color (same as Test 3)
+allUnfilled = true;
+allGridCells = document.querySelectorAll('.grid-square');
+
+allGridCells.forEach(gridCell => {
+    if (gridCell.style.backgroundColor !== DEFAULT_UNFILLED_COLOR) {
+        allUnfilled = false;
+    }
+});
+
+if (allUnfilled) {
+    console.log('TEST PASSED: Clear Grid button cleared all squares to unfilled successfully');
+}
+else {
+    console.log('TEST FAILED: Clear Grid button did not clear all squares to unfilled');
 }
 
 
