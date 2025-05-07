@@ -46,6 +46,14 @@ h1 {
     text-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.8);
 }
 
+.text {
+    color: gold;
+    text-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.8);
+}
+
+#instructions {
+    margin: 0;
+}
 
 #grid-container {
     display: flex;
@@ -73,7 +81,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 8px 0 24px 0;
+    margin: 16px 0 24px 0;
     padding: 0;
 }
 
